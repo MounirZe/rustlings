@@ -13,21 +13,29 @@
 // to show that your changes allow alphabetical grades.
 
 // Execute `rustlings hint quiz3` or use the `hint` watch subcommand for a hint.
-
-// I AM NOT DONE
-
-pub struct ReportCard {
-    pub grade: f32,
+pub struct ReportCard<T> {
+    pub grade: T,
     pub student_name: String,
     pub student_age: u8,
 }
 
-impl ReportCard {
+pub struct Truc {
+    
+}
+
+impl std::fmt::Display for Truc {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "machin")
+    }
+}   
+
+impl<T: std::fmt::Display> ReportCard<T> {
     pub fn print(&self) -> String {
         format!("{} ({}) - achieved a grade of {}",
             &self.student_name, &self.student_age, &self.grade)
     }
 }
+
 
 #[cfg(test)]
 mod tests {
@@ -50,7 +58,7 @@ mod tests {
     fn generate_alphabetic_report_card() {
         // TODO: Make sure to change the grade here after you finish the exercise.
         let report_card = ReportCard {
-            grade: 2.1,
+            grade: "A+".to_string(),
             student_name: "Gary Plotter".to_string(),
             student_age: 11,
         };
@@ -58,5 +66,11 @@ mod tests {
             report_card.print(),
             "Gary Plotter (11) - achieved a grade of A+"
         );
+    }
+
+    #[test]
+    fn test_truc(){
+        let rep : ReportCard<Truc> = ReportCard { grade: Truc{}, student_name: "Gary Plotter".to_string(), student_age: 11};
+        assert_eq!(rep.print(),"Gary Plotter (11) - achieved a grade of machin" )
     }
 }
